@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: "10"
 
 networks:
-  meedu-network:
+  leedu-network:
     driver: bridge
 
 volumes:
@@ -14,7 +14,7 @@ volumes:
   data_meilisearch:
 
 services:
-  meedu:
+  leedu:
     image: registry.cn-hangzhou.aliyuncs.com/meedu/light:4.9.32
     restart: always
     environment:
@@ -37,7 +37,7 @@ services:
       - 8200:8200
       - 8300:8300
     networks:
-      - meedu-network
+      - leedu-network
     depends_on:
       - mysql
       - redis
@@ -51,23 +51,23 @@ services:
     # ports:
     #   - 6379:6379
     networks:
-      - meedu-network
+      - leedu-network
     logging: *default-logging
 
   mysql:
     image: registry.cn-hangzhou.aliyuncs.com/hzbs/mysql:8.1
     restart: always
     environment:
-      - MYSQL_DATABASE=meedu
-      - MYSQL_ROOT_PASSWORD=meeduxyz
+      - MYSQL_DATABASE=leedu
+      - MYSQL_ROOT_PASSWORD=leeduxyz
     volumes:
       - data_mysql:/var/lib/mysql
     # ports:
     #   - 3306:3306
     networks:
-      - meedu-network
+      - leedu-network
     logging: *default-logging
-  
+
   meilisearch:
     image: registry.cn-hangzhou.aliyuncs.com/hzbs/meilisearch:0.24.0
     restart: always
@@ -76,5 +76,5 @@ services:
     # ports:
     #   - 7700:7700
     networks:
-      - meedu-network
+      - leedu-network
     logging: *default-logging

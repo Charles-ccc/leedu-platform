@@ -11,7 +11,7 @@ x-logging: &default-logging
     max-file: "10"
 
 networks:
-  meedu-network:
+  leedu-network:
     driver: bridge
 
 volumes:
@@ -20,11 +20,11 @@ volumes:
   data_meilisearch:
 
 services:
-  meedu:
+  leedu:
     build:
       context: .
       dockerfile: Dockerfile
-    image: meedu-platform:latest
+    image: leedu-platform:latest
     restart: always
     environment:
       - DB_HOST=${DB_HOST}
@@ -47,7 +47,7 @@ services:
       - 8200:8200  # H5
       - 8300:8300  # Admin
     networks:
-      - meedu-network
+      - leedu-network
     depends_on:
       - mysql
       - redis
@@ -60,7 +60,7 @@ services:
     volumes:
       - data_redis:/data
     networks:
-      - meedu-network
+      - leedu-network
     logging: *default-logging
 
   mysql:
@@ -72,7 +72,7 @@ services:
     volumes:
       - data_mysql:/var/lib/mysql
     networks:
-      - meedu-network
+      - leedu-network
     logging: *default-logging
 
   meilisearch:
@@ -81,5 +81,5 @@ services:
     volumes:
       - data_meilisearch:/meili_data
     networks:
-      - meedu-network
+      - leedu-network
     logging: *default-logging

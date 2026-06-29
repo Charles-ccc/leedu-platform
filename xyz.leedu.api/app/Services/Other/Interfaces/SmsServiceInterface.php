@@ -1,0 +1,14 @@
+<?php
+
+/*
+ * This file is part of the Leedu.
+ *
+ * (c) 杭州白书科技有限公司
+ */
+
+namespace App\Services\Other\Interfaces;
+
+interface SmsServiceInterface
+{
+    public function sendCode($mobile, $code, $scene): void;
+}

@@ -1,0 +1,29 @@
+<?php
+
+/*
+ * This file is part of the Leedu.
+ *
+ * (c) 杭州白书科技有限公司
+ */
+
+namespace App\Services\Member\Models;
+
+use App\Leedu\Merchant\BelongsToMerchant;
+
+use App\Constant\TableConstant;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class UserVideo extends Model
+{
+    use BelongsToMerchant;
+    use HasFactory;
+
+    protected $table = TableConstant::TABLE_USER_VIDEO;
+
+    protected $fillable = [
+        'user_id', 'video_id', 'charge', 'created_at',
+    ];
+
+    public $timestamps = false;
+}

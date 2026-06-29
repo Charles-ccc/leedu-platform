@@ -1,8 +1,8 @@
 FROM registry.cn-hangzhou.aliyuncs.com/hzbs/node:20-alpine AS node-base
 
-COPY xyz.meedu.admin /app/admin
-COPY xyz.meedu.h5 /app/h5
-COPY xyz.meedu.pc /app/pc
+COPY xyz.leedu.admin /app/admin
+COPY xyz.leedu.h5 /app/h5
+COPY xyz.leedu.pc /app/pc
 
 WORKDIR /app/admin
 RUN pnpm i --frozen-lockfile && VITE_APP_URL=/api/ pnpm build
@@ -22,7 +22,7 @@ COPY docker/php/php.ini /usr/local/etc/php/php.ini
 COPY docker/php/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY docker/php/php-fpm.d /usr/local/etc/php-fpm.d
 # API程序代码
-COPY --chown=www-data:www-data xyz.meedu.api /var/www/api
+COPY --chown=www-data:www-data xyz.leedu.api /var/www/api
 
 COPY --from=node-base --chown=www-data:www-data /app/admin/dist /var/www/admin
 COPY --from=node-base --chown=www-data:www-data /app/pc/dist /var/www/pc
@@ -46,4 +46,4 @@ EXPOSE 8300
 
 ENTRYPOINT ["tini", "--"]
 
-CMD echo "Waiting for mysql/redis to start..."; sleep 15; php artisan meedu:upgrade; php artisan install:lock; nginx; php-fpm
+CMD echo "Waiting for mysql/redis to start..."; sleep 15; php artisan leedu:upgrade; php artisan install:lock; nginx; php-fpm

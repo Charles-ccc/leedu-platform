@@ -1,24 +1,31 @@
-<p align="center"><a href="https://www.sslbear.com?from=meedu">SSLBear - 云服务域名证书守护者|7x24小时监护让域名证书永不过期</a></p>
-
-<h1 align="center">MeEdu - 数据安全的网校系统</h1>
+<h1 align="center">Leedu Platform</h1>
 
 <h4 align="center">
-  <a href="https://www.meedu.vip">官网</a> |
-  <a href="https://meedu.vip/price.html">商业版</a> |
-  <a href="https://faq.meedu.vip">文档中心</a>
+  面向商用落地的网校系统二次开发版本（Fork 自上游开源项目）
 </h4>
 
 <p align="center">⚡ 基于 PHP+Laravel 开发的在线网校解决方案 🔍</p>
 
-**MeEdu** 是一款基于 PHP7.4 + Laravel8 + MySQL + Redis 开发的开源网校(知识付费)解决方案。支持线上点播、课程购买、网校装修、学员手机号登录注册、学习统计、角色管理等丰富功能。
-**MeEdu** 是前后端分离的架构，支持 PC,H5 端口。此为 MeEdu 开源版本。**与此同时，我们还提供商业版本解决方案。商业版本支持直播课、考试练习、电子书、图文、站内问答、秒杀、团购、兑换码等更多功能；在开源的基础上还支持微信小程序、安卓 APP、苹果 APP 端口。**
+**Leedu** 是一款基于 PHP7.4 + Laravel8 + MySQL + Redis 的前后端分离网校系统，支持 PC / H5 / Admin 多端。
+
+## 项目声明
+
+- 本仓库是基于上游开源项目 Fork 后的业务化改造版本。
+- 本仓库中的 `Leedu` 为本项目内部命名，不代表对上游商标、品牌或商业权益的继承。
+- 如需对外商用，请先由法务确认上游许可证、附加条款、商标与二开分发义务。
+
+## 仓库地址
+
+```bash
+https://github.com/Charles-ccc/leedu-platform
+```
 
 ## 🚀 快速上手
 
 拉取代码：
 
 ```
-git clone --branch main https://gitee.com/myteng/MeEdu.git meedu
+git clone --branch main https://github.com/Charles-ccc/leedu-platform.git leedu-platform
 ```
 
 运行(分 3 步):
@@ -26,7 +33,7 @@ git clone --branch main https://gitee.com/myteng/MeEdu.git meedu
 **① 进入目录并复制环境配置**
 
 ```
-cd meedu
+cd leedu-platform
 cp .env.example .env          # Windows: 改为 copy .env.example .env
 ```
 
@@ -75,9 +82,8 @@ docker-compose up -d
 
 ## 🔰️ 软件安全
 
-安全问题应该通过邮件私下报告给 tengyongzhi@meedu.vip。 您将在 24 小时内收到回复，如果因为某些原因您没有收到回复，请通过回复原始邮件的方式跟进，以确保我们收到了您的原始邮件。
+安全问题请通过私有渠道报告给项目维护者。建议使用专用安全邮箱（例如：`security@your-domain.com`）并在 24 小时内响应。
 
 ## 📃 使用许可
 
-- 2026 © 杭州白书科技有限公司。
-- 本软件遵循 Apache 2.0 许可证，附加特定的商业使用条件，使用此软件还需要遵循[附件条款和条件](ADDITIONAL_TERMS.md)。
+- 本项目沿用上游许可证分发，请以仓库内 `LICENSE` 与 [附件条款和条件](ADDITIONAL_TERMS.md) 为准。

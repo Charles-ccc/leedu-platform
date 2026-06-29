@@ -31,7 +31,7 @@
 | 项 | 内容 |
 |----|------|
 | 现状 | 配置解析、按订单机构路由、回调按机构验签**已接好**；H5(wap)支付已走 resolver |
-| 代码 | `app/Meedu/Merchant/AlipayClientResolver.php`（构建 yansongda 配置）<br>`app/Bus/UniPayBus.php::createAlipayH5OrderWithCache`（`Pay::alipay($config)->wap(...)`）<br>`app/Http/Controllers/Frontend/PaymentController.php::index/callback` |
+| 代码 | `app/leedu/Merchant/AlipayClientResolver.php`（构建 yansongda 配置）<br>`app/Bus/UniPayBus.php::createAlipayH5OrderWithCache`（`Pay::alipay($config)->wap(...)`）<br>`app/Http/Controllers/Frontend/PaymentController.php::index/callback` |
 | 联调要点 | 1. 机构填真实凭证后，下单即用其商户号收款（钱进机构账户）。<br>2. **PC 电脑网站支付**：目前只接了 `wap`，如需 PC 端跳转支付宝收银台，补 `Pay::alipay($config)->web([...])`（同样用 resolver 取配置）。<br>3. 回调验签已按订单 `merchant_id` 取配置，真实 notify 即可生效。 |
 | 验证 | 用机构真实凭证下一单 → 跳支付宝 → 支付 → 回调 → 订单完成 + 生成 `order_installments`(1期已扣) |
 
@@ -41,7 +41,7 @@
 
 | 项 | 内容 |
 |----|------|
-| 现状 | meedu 原退款 `app/Meedu/Payment/Alipay/AlipayRefund.php` 仍用**平台配置**，未按机构 |
+| 现状 | leedu 原退款 `app/leedu/Payment/Alipay/AlipayRefund.php` 仍用**平台配置**，未按机构 |
 | 联调要点 | 把退款也改用 `AlipayClientResolver::configForMerchant($order['merchant_id'])` 取配置再退款（参考 PaymentController 的改法）。 |
 | 支付宝接口 | `alipay.trade.refund`（yansongda `->refund()`） |
 
@@ -52,7 +52,7 @@
 | 项 | 内容 |
 |----|------|
 | 现状 | 每期扣款成功 → 已按机构 `platform_share_rate` 生成 `platform_share_records`(status=待分账)；**真实分账调用留 TODO** |
-| 代码 | `app/Meedu/Merchant/ProfitShareService.php::settleInstallment`（`// TODO(联调): 调用支付宝分账API`） |
+| 代码 | `app/leedu/Merchant/ProfitShareService.php::settleInstallment`（`// TODO(联调): 调用支付宝分账API`） |
 | 支付宝接口 | **分账**：`alipay.trade.order.settle`（对已收单交易发起分账，把平台分成分到平台账户）<br>前置：`alipay.trade.royalty.relation.bind`（机构与平台分账关系绑定） |
 | 入参 | `out_request_no`、`trade_no`(该期扣款的支付宝交易号 `order_installments.alipay_trade_no`)、`royalty_parameters`[{trans_in=平台账户, amount=`platform_share_records.amount`/100}] |
 | 联调后补 | 调用成功 → `$record->update(['status'=>SUCCESS,'alipay_settle_no'=>$明细号])`；失败置 FAILED 重试 |
@@ -90,7 +90,7 @@
 | 支付宝接口 | 代扣：`alipay.trade.pay`（`product_code=GENERAL_WITHHOLDING` + `agreement_params.agreement_no`） |
 | 扣款成功后补 | `order_installment` 置已扣 + 记 `alipay_trade_no` + `charged_at`；**触发该期平台分成分账**（调 §3）；首期成功即"成单"已在 §M6 计提提成 |
 | 扣款失败 | 置 `status=2失败` + `retry_count++`，催扣（重试间隔/超限策略见 PLATFORM_DESIGN §11） |
-| 建议实现 | 新增 `php artisan` 命令 + 计划任务（参考现有 `app/Console/Commands`），如 `meedu:zhima:withhold` 每日跑 |
+| 建议实现 | 新增 `php artisan` 命令 + 计划任务（参考现有 `app/Console/Commands`），如 `leedu:zhima:withhold` 每日跑 |
 
 ---
 
@@ -118,14 +118,14 @@
 
 | 功能 | 文件 |
 |------|------|
-| 机构支付宝配置(加密) | `app/Meedu/ServiceV2/Models/MerchantAlipayConfig.php`、`MerchantAlipayController.php` |
-| 配置解析器 | `app/Meedu/Merchant/AlipayClientResolver.php` |
+| 机构支付宝配置(加密) | `app/leedu/ServiceV2/Models/MerchantAlipayConfig.php`、`MerchantAlipayController.php` |
+| 配置解析器 | `app/leedu/Merchant/AlipayClientResolver.php` |
 | 收单发起 | `app/Bus/UniPayBus.php` |
 | 支付回调 | `app/Http/Controllers/Frontend/PaymentController.php` |
-| 分期模型 | `app/Meedu/ServiceV2/Models/OrderInstallment.php` |
-| 平台分成 | `app/Meedu/Merchant/ProfitShareService.php`、`PlatformShareRecord.php` |
-| 芝麻服务 | `app/Meedu/Merchant/ZhimaService.php` |
+| 分期模型 | `app/leedu/ServiceV2/Models/OrderInstallment.php` |
+| 平台分成 | `app/leedu/Merchant/ProfitShareService.php`、`PlatformShareRecord.php` |
+| 芝麻服务 | `app/leedu/Merchant/ZhimaService.php` |
 | 签约存证 | `UserZhimaSigning.php`(当前态)、`ZhimaSignEvent.php`(留痕) |
 | 合同同意存证 | `UserContractConsent.php` |
-| 提成 | `app/Meedu/Merchant/CommissionService.php`、`CommissionRecord.php` |
+| 提成 | `app/leedu/Merchant/CommissionService.php`、`CommissionRecord.php` |
 | 退款冲正 | `app/Listeners/OrderRefundProcessed/CommissionClawbackListener.php` |

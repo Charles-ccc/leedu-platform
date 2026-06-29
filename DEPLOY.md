@@ -1,7 +1,7 @@
-# 生产部署手册（MeEdu 平台版）
+# 生产部署手册（Leedu 平台版）
 
 > 把含平台化改造（多机构 + 业务员返点 + 支付分账 + 芝麻先享）的代码部署到服务器。
-> 关键：**必须用本仓库 Dockerfile 重新构建镜像**——官方 `compose.yml` 拉的预构建镜像 `meedu/light` 不含你的改动。
+> 关键：**必须用本仓库 Dockerfile 重新构建镜像**——官方 `compose.yml` 拉的预构建镜像 `leedu/light` 不含你的改动。
 
 相关文档：架构 [PLATFORM_DESIGN.md](PLATFORM_DESIGN.md) ｜ 本地开发 [DEV.md](DEV.md) ｜ 支付联调 [ALIPAY_INTEGRATION.md](ALIPAY_INTEGRATION.md)
 
@@ -21,7 +21,7 @@
 把部署包（见"打包"产物）上传到服务器并解压，或：
 
 ```bash
-git clone <你的仓库> meedu && cd meedu
+git clone <你的仓库> leedu && cd leedu
 ```
 
 > 部署包已剔除 `node_modules`、`vendor`、`dist`、`.git`、开发用 `.env`/`compose.dev.yml` 等；镜像构建时会自动重新拉取依赖并打包。
@@ -60,13 +60,13 @@ docker compose -f compose.prod.yml build
 docker compose -f compose.prod.yml up -d
 ```
 
-容器 **首次启动会自动执行 `meedu:upgrade`（=数据库迁移 + 同步配置）**，无需手动 migrate。
+容器 **首次启动会自动执行 `leedu:upgrade`（=数据库迁移 + 同步配置）**，无需手动 migrate。
 
 确认状态：
 
 ```bash
 docker compose -f compose.prod.yml ps
-docker compose -f compose.prod.yml logs -f meedu
+docker compose -f compose.prod.yml logs -f leedu
 ```
 
 ---
@@ -74,10 +74,10 @@ docker compose -f compose.prod.yml logs -f meedu
 ## 5. 初始化超级管理员（仅首次）
 
 ```bash
-docker compose -f compose.prod.yml exec meedu php artisan install role
-docker compose -f compose.prod.yml exec meedu php artisan install administrator
-# 按提示设邮箱/密码；或静默(默认 meedu@meedu.meedu / meedu123，务必随后改密)
-# docker compose -f compose.prod.yml exec meedu php artisan install administrator --q
+docker compose -f compose.prod.yml exec leedu php artisan install role
+docker compose -f compose.prod.yml exec leedu php artisan install administrator
+# 按提示设邮箱/密码；或静默(默认 leedu@leedu.leedu / leedu123，务必随后改密)
+# docker compose -f compose.prod.yml exec leedu php artisan install administrator --q
 ```
 
 ---
@@ -121,7 +121,7 @@ docker compose -f compose.prod.yml up -d   # 启动会自动迁移
 **备份（务必定期）**：
 ```bash
 docker compose -f compose.prod.yml exec mysql sh -c \
-  'mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" meedu' > backup_$(date +%F).sql
+  'mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" leedu' > backup_$(date +%F).sql
 ```
 
 ---

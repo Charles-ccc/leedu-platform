@@ -1,20 +1,20 @@
-/xyz.meedu.h5/node_modules/
-/xyz.meedu.h5/dist/
-/xyz.meedu.h5/README.md
+/xyz.leedu.h5/node_modules/
+/xyz.leedu.h5/dist/
+/xyz.leedu.h5/README.md
 
-/xyz.meedu.pc/node_modules/
-/xyz.meedu.pc/dist/
-/xyz.meedu.pc/README.md
+/xyz.leedu.pc/node_modules/
+/xyz.leedu.pc/dist/
+/xyz.leedu.pc/README.md
 
-/xyz.meedu.admin/node_modules/
-/xyz.meedu.admin/dist/
-/xyz.meedu.admin/README.md
+/xyz.leedu.admin/node_modules/
+/xyz.leedu.admin/dist/
+/xyz.leedu.admin/README.md
 
-/xyz.meedu.api/vendor/
-/xyz.meedu.api/.env
-/xyz.meedu.api/.phpunit.result.cache
-/xyz.meedu.api/.php-cs-fixer.php
-/xyz.meedu.api/apidoc/
-/xyz.meedu.api/apidoc.json
-/xyz.meedu.api/README.md
-/xyz.meedu.api/.env.testing
+/xyz.leedu.api/vendor/
+/xyz.leedu.api/.env
+/xyz.leedu.api/.phpunit.result.cache
+/xyz.leedu.api/.php-cs-fixer.php
+/xyz.leedu.api/apidoc/
+/xyz.leedu.api/apidoc.json
+/xyz.leedu.api/README.md
+/xyz.leedu.api/.env.testing
