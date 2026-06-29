@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false"
+         stopOnFailure="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <coverage>
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">./app/Models</directory>
+            <directory suffix=".php">./app/Services/*/Models</directory>
+            <directory suffix=".php">./app/Http/Controllers/Backend/Api/V1</directory>
+        </exclude>
+        <report>
+            <html outputDirectory="./tests/report" lowUpperBound="35" highLowerBound="70"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="Commands">
+            <directory suffix="Test.php">./tests/Commands</directory>
+        </testsuite>
+        <testsuite name="Services">
+            <directory suffix="Test.php">./tests/Services</directory>
+        </testsuite>
+        <testsuite name="Api">
+            <directory suffix="Test.php">./tests/Api</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+    <logging/>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_KEY" value="base64:dGVzdGluZy1vbmx5LWFwcC1rZXktMzJieXRlczEyMzQ="/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="JWT_SECRET" value="testing-only-secret-do-not-use-in-production"/>
+        <ini name="memory_limit" value="256M"/>
+    </php>
+</phpunit>

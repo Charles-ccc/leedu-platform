@@ -1,0 +1,68 @@
+<?php
+
+/*
+ * This file is part of the MeEdu.
+ *
+ * (c) 杭州白书科技有限公司
+ */
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/search', 'SearchController@index');
+
+Route::get('/status', 'SystemController@status');
+
+Route::get('/other/wechat-mp-jssdk', 'OtherController@wechatMpJSSDK');
+
+Route::get('/auth/login/wechat/oauth', 'LoginController@wechatOauthLogin')->name('api.v3.login.wechat-oauth');
+Route::get('/auth/login/wechat/callback', 'LoginController@wechatOauthCallback')->name('api.v3.login.wechat.callback');
+Route::get('/auth/login/socialite/{app}', 'LoginController@socialiteLogin');
+Route::get('/auth/login/socialite/{app}/callback', 'LoginController@socialiteLoginCallback')->name('api.v3.login.socialite.callback');
+
+Route::get('/auth/login/wechat-scan/page', 'WechatScanLoginController@index')->name('api.v3.wechat-scan-login.page');
+Route::post('/auth/login/wechat-scan/url', 'WechatScanLoginController@getLoginUrl');
+Route::get('/auth/login/wechat-scan/query', 'WechatScanLoginController@query');
+
+Route::post('/auth/login/code', 'LoginController@loginByCode');
+Route::post('/auth/register/withSocialite', 'LoginController@registerWithSocialite');
+
+Route::get('/course/attach-download', 'CourseController@attachDownloadDirect')->name('course.attach.download.direct');
+
+Route::get('/comments', 'CommentController@index');
+Route::get('/comments/replies', 'CommentController@replies');
+
+// 平台化:芝麻先享合同(公开获取)
+Route::get('/zhima/contracts', 'ZhimaController@contracts');
+
+Route::group(['middleware' => ['auth:apiv2', 'api.login.status.check']], function () {
+    Route::post('/order', 'OrderController@store');
+    // 平台化:芝麻先享合同勾选同意存证
+    Route::post('/zhima/consent', 'ZhimaController@consent');
+
+    // 获取课件的下载地址
+    Route::get('/course/{courseId}/attach/{id}', 'CourseController@attachDownloadUrl');
+
+    Route::group(['prefix' => 'member'], function () {
+        // 学员已购录播课
+        Route::get('/courses', 'MemberController@courses');
+        // 学员的全部已学习录播课
+        Route::get('/courses/learned', 'MemberController@learnedCourses');
+        // 学员某个课程的学习明细(课程的所有课时观看进度)
+        Route::get('/learned/course/{courseId}', 'MemberController@learnedCourseDetail');
+        // 学员喜欢的课程
+        Route::get('/courses/like', 'MemberController@likeCourses');
+
+        // 账户注销
+        Route::post('/destroy', 'MemberController@destroy');
+        // 社交登录绑定
+        Route::post('/socialite/bindWithCode', 'MemberController@socialiteBindByCode');
+
+        // 微信实人认证结果查询
+        Route::get('/tencent/faceVerify', 'MemberController@queryTencentFaceVerify');
+        // 请求发起微信实人认证
+        Route::post('/tencent/faceVerify', 'MemberController@tencentFaceVerify');
+    });
+
+    // 提交评论
+    Route::post('/comment/store', 'CommentController@store');
+});

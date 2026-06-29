@@ -1,0 +1,64 @@
+<?php
+
+/*
+ * This file is part of the MeEdu.
+ *
+ * (c) 杭州白书科技有限公司
+ */
+
+namespace App\Http\Requests\Backend;
+
+use Carbon\Carbon;
+use App\Services\Member\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+class MemberRequest extends BaseRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'mobile' => 'required|unique:users,mobile',
+            'password' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'mobile.required' => __('请输入手机号'),
+            'mobile.unique' => __('手机号已存在'),
+            'password.required' => __('请输入密码'),
+        ];
+    }
+
+    public function filldata()
+    {
+        $roleExpiredAt = $this->input('role_expired_at') ?: null;
+        $roleExpiredAt && $roleExpiredAt = Carbon::parse($roleExpiredAt)->toDateTimeLocalString();
+
+        return [
+            'avatar' => $this->post('avatar') ?? '',
+            'nick_name' => $this->post('nick_name') ?? '',
+            'mobile' => $this->post('mobile'),
+            'password' => Hash::make($this->post('password')),
+            'is_active' => User::ACTIVE_YES,
+            'role_id' => (int)$this->input('role_id'),
+            'role_expired_at' => $roleExpiredAt,
+        ];
+    }
+}

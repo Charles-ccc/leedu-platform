@@ -1,0 +1,122 @@
+.chapter-item {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+
+  &:first-child {
+    margin-top: 0px;
+  }
+
+  .chapter-name {
+    height: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    line-height: 16px;
+    text-align: left;
+    padding-bottom: 15px;
+
+    &:first-child {
+      margin-bottom: 0px;
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .chapter-videos-box {
+    display: flex;
+    flex-direction: column;
+
+    .video-item {
+      min-height: 24px;
+      display: flex;
+      flex-direction: row;
+      margin-top: 15px;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.02);
+      padding: 8px 15px;
+      border-radius: 8px;
+
+      &:first-child {
+        margin-top: 0px;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      .lock-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .video-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .video-item-basic-info {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        .video-title {
+          flex: 1;
+          min-width: 0;
+          height: 22px;
+          font-size: 14px;
+          font-weight: 400;
+          color: #333333;
+          line-height: 22px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .video-duration {
+          height: 22px;
+          font-size: 14px;
+          font-weight: 400;
+          color: #999999;
+          line-height: 22px;
+        }
+      }
+
+      .video-progress-wrapper {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .free {
+          width: 44px;
+          height: 22px;
+          background: #04c877;
+          border-radius: 2px;
+          color: #fff;
+          font-size: 12px;
+          font-weight: 400;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-right: 10px;
+        }
+
+        .video-progress {
+          height: 14px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #999999;
+          line-height: 14px;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
