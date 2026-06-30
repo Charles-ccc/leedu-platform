@@ -59,7 +59,7 @@ export function generateUUID(): string {
 export function transformBase64ToBlob(
   base64: string,
   mime: string,
-  filename: string
+  filename: string,
 ): File {
   const arr = base64.split(",");
   const bstr = atob(arr[1]);

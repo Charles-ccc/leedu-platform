@@ -183,8 +183,8 @@ const EditConfigPage = () => {
               <div className={styles["page-name"]}></div>
               <div className={styles["device-bar"]}>
                 <Button.Group className={styles["user-info"]}>
-                  <Dropdown menu={{ items, onClick }} placement="bottomRight">
-                    <div className="d-flex">
+                  <Dropdown menu={{ items, onClick }} placement='bottomRight'>
+                    <div className='d-flex'>
                       <span className={styles["name"]}>系统管理员</span>
                       <DownOutlined
                         style={{
@@ -201,8 +201,8 @@ const EditConfigPage = () => {
           </div>
         </div>
         <div className={styles["right-main"]}>
-          <div className="meedu-main-body">
-            <div className="float-left c-red">请配置访问地址</div>
+          <div className='meedu-main-body'>
+            <div className='float-left c-red'>请配置访问地址</div>
             {loading && (
               <div
                 style={{
@@ -217,16 +217,16 @@ const EditConfigPage = () => {
               </div>
             )}
             {!loading && (
-              <div className="float-left mt-30">
+              <div className='float-left mt-30'>
                 <Form
                   form={form}
-                  name="system-normal-config"
+                  name='system-normal-config'
                   labelCol={{ span: 4 }}
                   wrapperCol={{ span: 20 }}
                   initialValues={{ remember: true }}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
-                  autoComplete="off"
+                  autoComplete='off'
                 >
                   {config["系统"] &&
                     config["系统"].map((c: any) => (
@@ -244,7 +244,7 @@ const EditConfigPage = () => {
                             >
                               <Input style={{ width: 300 }} allowClear />
                               {c.help && (
-                                <div className="form-helper-text">
+                                <div className='form-helper-text'>
                                   <span>{c.help}</span>
                                 </div>
                               )}
@@ -256,12 +256,12 @@ const EditConfigPage = () => {
                 </Form>
               </div>
             )}
-            <div className="bottom-menus">
-              <div className="bottom-menus-box" style={{ left: 0, right: 0 }}>
+            <div className='bottom-menus'>
+              <div className='bottom-menus-box' style={{ left: 0, right: 0 }}>
                 <div>
                   <Button
                     loading={loading}
-                    type="primary"
+                    type='primary'
                     onClick={() => form.submit()}
                   >
                     保存
