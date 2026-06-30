@@ -59,7 +59,7 @@ export function generateUUID(): string {
 export function transformBase64ToBlob(
   base64: string,
   mime: string,
-  filename: string,
+  filename: string
 ): File {
   const arr = base64.split(",");
   const bstr = atob(arr[1]);
@@ -85,9 +85,6 @@ export function inStrArray(array: string[], value: string): boolean {
 }
 
 export function checkUrl(value: any) {
-  if (!value) {
-    return "";
-  }
   let url = value;
   let str = url.substr(url.length - 1, 1);
   if (str !== "/") {
@@ -198,9 +195,6 @@ export function parseVideo(file: File): Promise<VideoParseInfo> {
   });
 }
 export function wechatUrlRules(url: string) {
-  if (!url) {
-    return;
-  }
   if (
     !url.substring(0, 8).match("https://") &&
     !url.substring(0, 7).match("http://")
