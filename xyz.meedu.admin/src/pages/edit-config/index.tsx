@@ -242,9 +242,7 @@ const EditConfigPage = () => {
                                 { required: true, message: "请输入访问地址!" },
                               ]}
                             >
-                              <Form.Item name={c.key}>
-                                <Input style={{ width: 300 }} allowClear />
-                              </Form.Item>
+                              <Input style={{ width: 300 }} allowClear />
                               {c.help && (
                                 <div className="form-helper-text">
                                   <span>{c.help}</span>
