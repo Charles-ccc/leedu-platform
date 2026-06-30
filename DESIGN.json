@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-06-10T00:00:00Z",
-  "title": "Design System: Leedu",
+  "title": "Design System: MeEdu",
   "extensions": {
     "colorMeta": {
       "primary": {
@@ -98,7 +98,7 @@
       {
         "name": "lifted-signature",
         "value": "20px 20px 100px 0 rgba(85, 102, 119, 0.1)",
-        "purpose": "Leedu 的签名长柔阴影。仅用于真正从工作台浮起的元素：登录卡、初始化向导主面板、关键引导。"
+        "purpose": "MeEdu 的签名长柔阴影。仅用于真正从工作台浮起的元素：登录卡、初始化向导主面板、关键引导。"
       },
       {
         "name": "modal-default",
@@ -189,7 +189,7 @@
       "name": "Status Cell",
       "kind": "custom",
       "refersTo": null,
-      "description": "Leedu admin 表格状态列签名组件。圆点 + 文字双信号，禁止仅靠颜色区分。",
+      "description": "MeEdu admin 表格状态列签名组件。圆点 + 文字双信号，禁止仅靠颜色区分。",
       "html": "<div class=\"ds-status-cell\"><span class=\"ds-status-dot ds-status-dot--danger\"></span><span class=\"ds-status-label\">订单失败</span></div>",
       "css": ".ds-status-cell { display: inline-flex; align-items: center; gap: 8px; font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 400; line-height: 1.5; color: #213547; } .ds-status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; } .ds-status-dot--success { background: #04c877; } .ds-status-dot--warning { background: #e1a500; } .ds-status-dot--danger { background: #ff4d4f; } .ds-status-dot--neutral { background: #999999; } .ds-status-label { white-space: nowrap; }"
     },
@@ -205,14 +205,14 @@
       "name": "Lifted Hero Panel",
       "kind": "custom",
       "refersTo": null,
-      "description": "登录卡 / 初始化向导主面板。Leedu 签名长柔阴影的唯一使用场景示例。",
-      "html": "<div class=\"ds-hero-panel\"><div class=\"ds-hero-title\">欢迎使用 Leedu</div><div class=\"ds-hero-sub\">完成超管初始化，开启您的网校</div></div>",
+      "description": "登录卡 / 初始化向导主面板。MeEdu 签名长柔阴影的唯一使用场景示例。",
+      "html": "<div class=\"ds-hero-panel\"><div class=\"ds-hero-title\">欢迎使用 MeEdu</div><div class=\"ds-hero-sub\">完成超管初始化，开启您的网校</div></div>",
       "css": ".ds-hero-panel { background: #ffffff; border-radius: 4px; padding: 48px; width: 480px; box-shadow: 20px 20px 100px 0 rgba(85, 102, 119, 0.1); font-family: Inter, system-ui, sans-serif; color: #213547; box-sizing: border-box; } .ds-hero-title { font-size: 24px; font-weight: 500; line-height: 1; margin-bottom: 16px; } .ds-hero-sub { font-size: 14px; font-weight: 400; line-height: 1.5; color: rgba(0, 0, 0, 0.45); }"
     }
   ],
   "narrative": {
     "northStar": "运营人员的工作台 / The Operator's Console",
-    "overview": "Leedu 的视觉系统不是品牌宣言，是一张工作台桌面。运营人员每天要完成订单核销、课程上下架、学员管理、内容审核与异常排查；学员要在 pc/h5 端不被打断地完成找课、购买、学习。系统的工作是让两种心流都不掉线——不是让人停下来欣赏 UI。默认色是 Ant Design 的中性灰白，主色 #3ca7fa 是一束克制的天空蓝，只在交互节点上点亮，从不平铺到大块表面。视觉密度向桌面 B 端工具看齐（腾讯课堂 / Stripe Dashboard / 后台型 SaaS），不向 K12 教育网站、微商课程页或老派 OA 系统看齐。",
+    "overview": "MeEdu 的视觉系统不是品牌宣言，是一张工作台桌面。运营人员每天要完成订单核销、课程上下架、学员管理、内容审核与异常排查；学员要在 pc/h5 端不被打断地完成找课、购买、学习。系统的工作是让两种心流都不掉线——不是让人停下来欣赏 UI。默认色是 Ant Design 的中性灰白，主色 #3ca7fa 是一束克制的天空蓝，只在交互节点上点亮，从不平铺到大块表面。视觉密度向桌面 B 端工具看齐（腾讯课堂 / Stripe Dashboard / 后台型 SaaS），不向 K12 教育网站、微商课程页或老派 OA 系统看齐。",
     "keyCharacteristics": [
       "中性灰白底面 + 单一天空蓝点缀，色彩出现频率 ≤10%",
       "Antd 5 默认结构 + 项目级精修，不重写组件而是收敛 token",

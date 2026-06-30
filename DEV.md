@@ -21,7 +21,7 @@ colima status         # 确认运行中
 
 ## 二、启动开发栈
 
-在项目根目录 `/Users/weihao/leEdu`：
+在项目根目录 `/Users/weihao/meEdu`：
 
 ```bash
 # 启动全部（API 走源码挂载 + mysql/redis/meilisearch）
@@ -29,11 +29,11 @@ docker compose -f compose.yml -f compose.dev.yml up -d
 
 # 查看状态 / 日志
 docker compose ps
-docker compose logs -f leedu
+docker compose logs -f meedu
 ```
 
-- `compose.dev.yml` 把本地 `./xyz.leedu.api` 挂到容器 `/var/www/api`，并开启 `APP_DEBUG`。
-- 改 `xyz.leedu.api` 下的 PHP 代码**立即生效**，无需重启容器、无需重建镜像。
+- `compose.dev.yml` 把本地 `./xyz.meedu.api` 挂到容器 `/var/www/api`，并开启 `APP_DEBUG`。
+- 改 `xyz.meedu.api` 下的 PHP 代码**立即生效**，无需重启容器、无需重建镜像。
 - 改了路由(`routes/*`)或 config 后，若没生效，清一下缓存（见下）。
 
 **访问端口**
@@ -52,21 +52,21 @@ docker compose logs -f leedu
 
 ```bash
 # 进容器执行 artisan
-docker compose exec leedu php artisan <命令>
+docker compose exec meedu php artisan <命令>
 
 # 清缓存(改路由/配置/视图后)
-docker compose exec leedu php artisan route:clear
-docker compose exec leedu php artisan config:clear
-docker compose exec leedu php artisan cache:clear
+docker compose exec meedu php artisan route:clear
+docker compose exec meedu php artisan config:clear
+docker compose exec meedu php artisan cache:clear
 
 # 跑迁移(新增 migration 后)
-docker compose exec leedu php artisan migrate
+docker compose exec meedu php artisan migrate
 
 # 连数据库
-docker compose exec mysql sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" leedu'
+docker compose exec mysql sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" meedu'
 ```
 
-**后台登录**：http://localhost:8300 → 账号 `leedu@leedu.leedu` / 密码 `leedu123`（+ 图形验证码）。
+**后台登录**：http://localhost:8300 → 账号 `meedu@meedu.meedu` / 密码 `meedu123`（+ 图形验证码）。
 首登要填访问地址：API `http://localhost:8000`、PC `http://localhost:8100`、H5 `http://localhost:8200`（末尾不加斜杠）。
 
 ---
@@ -87,21 +87,21 @@ Vite 端口避开容器占用的 8100/8200/8300，用 53xx。
 
 | 前端 | 目录 | 状态 | 启动命令 | 访问 |
 |------|------|------|---------|------|
-| 后台 admin | `xyz.leedu.admin` | ✅ 已装依赖+已建 .env | `node_modules/.bin/vite --port 5300 --host` | http://localhost:5300 |
-| PC | `xyz.leedu.pc` | ✅ 已装依赖+已建 .env | `node_modules/.bin/vite --port 5100 --host` | http://localhost:5100 |
-| H5 | `xyz.leedu.h5` | ✅ 已装依赖+已建 .env | `node_modules/.bin/vite --port 5200 --host` | http://localhost:5200 |
+| 后台 admin | `xyz.meedu.admin` | ✅ 已装依赖+已建 .env | `node_modules/.bin/vite --port 5300 --host` | http://localhost:5300 |
+| PC | `xyz.meedu.pc` | ✅ 已装依赖+已建 .env | `node_modules/.bin/vite --port 5100 --host` | http://localhost:5100 |
+| H5 | `xyz.meedu.h5` | ✅ 已装依赖+已建 .env | `node_modules/.bin/vite --port 5200 --host` | http://localhost:5200 |
 
 **admin（已就绪，直接启动）**
 ```bash
 export PATH="/Users/weihao/.hermes/node/bin:$PATH"
-cd xyz.leedu.admin
+cd xyz.meedu.admin
 node_modules/.bin/vite --port 5300 --host
 ```
 
 **pc / h5（首次需装依赖 + 建 .env）**
 ```bash
 export PATH="/Users/weihao/.hermes/node/bin:$PATH"
-cd xyz.leedu.pc      # 或 xyz.leedu.h5
+cd xyz.meedu.pc      # 或 xyz.meedu.h5
 printf 'VITE_APP_URL=http://localhost:8000\n' > .env
 pnpm install                                   # 首次安装(较大)
 node_modules/.bin/vite --port 5100 --host      # h5 用 5200
@@ -123,8 +123,8 @@ docker compose down -v
 
 ## 六、环境内部说明（排障用）
 
-- API 配置：`xyz.leedu.api/.env`（git 忽略）。`vendor/` 从镜像拷出（git 忽略），与 `composer.lock`(4.9.32) 完全一致。
+- API 配置：`xyz.meedu.api/.env`（git 忽略）。`vendor/` 从镜像拷出（git 忽略），与 `composer.lock`(4.9.32) 完全一致。
 - `public/storage` 是软链 → `storage/app/public`；`storage`、`bootstrap/cache` 需可写。
-- 容器启动会自动跑 `leedu:upgrade`（迁移+同步配置+清缓存），幂等，不会丢数据。
+- 容器启动会自动跑 `meedu:upgrade`（迁移+同步配置+清缓存），幂等，不会丢数据。
 - **MeiliSearch 容器在 colima 模拟环境下起不来**（`os error 38`），只影响站内搜索，核心功能正常。需要搜索再换镜像或用 Rosetta。
-- 数据卷：`leedu_data_mysql` / `leedu_data_redis` / `leedu_data_meilisearch`。
+- 数据卷：`meedu_data_mysql` / `meedu_data_redis` / `meedu_data_meilisearch`。

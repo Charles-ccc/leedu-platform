@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Leedu 平台版 - 生产部署辅助脚本
+# MeEdu 平台版 - 生产部署辅助脚本
 # 用法: ./deploy.sh   (在仓库根目录、服务器上执行)
 # 详见 DEPLOY.md
 set -euo pipefail
@@ -32,13 +32,13 @@ $COMPOSE up -d mysql redis meilisearch
 echo "   等待数据库就绪..."
 sleep 15
 
-echo "==> 4/5 启动应用 (启动时会自动执行 leedu:upgrade = 数据库迁移)"
-$COMPOSE up -d leedu
+echo "==> 4/5 启动应用 (启动时会自动执行 meedu:upgrade = 数据库迁移)"
+$COMPOSE up -d meedu
 sleep 20
 
 echo "==> 5/5 初始化超级管理员 (仅首次需要; 已存在会提示跳过)"
-echo "   如需创建超管: $COMPOSE exec leedu php artisan install role"
-echo "                  $COMPOSE exec leedu php artisan install administrator"
+echo "   如需创建超管: $COMPOSE exec meedu php artisan install role"
+echo "                  $COMPOSE exec meedu php artisan install administrator"
 
 echo
 echo "完成。状态:"
